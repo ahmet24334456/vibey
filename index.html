@@ -2,165 +2,53 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vibey | Frekansını Keşfet</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
 </head>
 <body>
-
-    <div class="theme-toggle" onclick="toggleTheme()">
-        <i id="theme-icon" class="fas fa-moon"></i>
-    </div>
-
-    <section id="auth-page" class="page active">
-        <div class="auth-container">
-            <h1 class="logo-text">Vibey</h1>
-            <div id="register-form">
-                <input type="text" id="name-input" placeholder="Ad Soyad">
-                <input type="email" id="email-input" placeholder="Gmail Adresin">
-                <button onclick="handleAuth()">Kod Gönder</button>
-            </div>
-            <div id="verify-form" class="hidden">
-                <p>Gmail kutunu kontrol et!</p>
-                <input type="text" id="verify-code" placeholder="0000">
-                <button onclick="handleVerify()">Giriş Yap</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="home-page" class="page">
-        <div class="aura-container">
-            <div id="main-orb" class="orb"></div>
-            <h2 id="aura-status">Vibe Analizi Yapılıyor...</h2>
-        </div>
-    </section>
-
-    <section id="feed-page" class="page">
-        <div class="video-feed" id="video-container">
-            </div>
-    </section>
-
-    <section id="chat-list-page" class="page">
-        <div class="chat-header-main"><h3>Mesajlar</h3></div>
-        <div class="chat-list" id="chat-list-container"></div>
-        <button class="fab-btn" onclick="openDiscoverModal()"><i class="fas fa-plus"></i></button>
-    </section>
-
-    <section id="chat-box-page" class="page">
-        <div class="chat-header">
-            <button class="back-btn" onclick="showPage('chat-list-page')"><i class="fas fa-arrow-left"></i></button>
-            <h3 id="current-chat-user-name">Kullanıcı</h3>
-        </div>
-        <div class="messages-container" id="messages-container"></div>
-        <div class="message-input-area">
-            <input type="text" id="message-input" placeholder="Mesaj yaz...">
-            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </section>
-
-    <section id="profile-page" class="page">
-        <div class="profile-main">
-            <div class="profile-cover-photo"></div>
-            <div class="profile-details">
-                <div class="profile-pic-area">
-                    <img id="my-profile-pic" class="profile-pic-lg" src="https://via.placeholder.com/150">
-                    <input type="file" id="upload-profile-pic" accept="image/*" hidden onchange="previewMyProfilePic(event)">
-                    <button class="edit-pic-btn" onclick="document.getElementById('upload-profile-pic').click()"><i class="fas fa-camera"></i></button>
-                </div>
-                <h2 id="my-profile-name">Kullanıcı Adı</h2>
-                <p id="my-relationship-status" class="relationship-tag">Bekar</p>
-                
-                <div class="stats-row">
-                    <div class="stat-item"><b>12</b><span>Vibes</span></div>
-                    <div class="stat-item"><b>245</b><span>Takipçi</span></div>
-                    <div class="stat-item"><b>180</b><span>Takip</span></div>
-                </div>
-
-                <div class="profile-actions">
-                    <button class="action-btn" onclick="openEditProfileModal()"><i class="fas fa-edit"></i> Düzenle</button>
-                    <button class="action-btn" onclick="togglePrivacy()" id="privacy-btn">Profil: Açık</button>
-                    <button class="action-btn" onclick="openProfilePreviewModal()"><i class="fas fa-eye"></i> Önizle</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="upload-page" class="page">
-        <div class="upload-container">
-            <h2>Vibe Paylaş</h2>
-            <div class="drop-zone" id="drop-zone" onclick="document.getElementById('video-file-input').click()">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <span id="file-name-display">Videoyu seç veya tıkla</span>
-                <input type="file" id="video-file-input" accept="video/*" hidden onchange="updateFileName()">
-            </div>
-            <textarea id="video-description" placeholder="Vibe'ını anlatan bir açıklama..."></textarea>
-            <button class="publish-btn" onclick="publishVideo()">Paylaş</button>
-        </div>
-    </section>
-
-    <nav class="nav-bar hidden" id="nav">
-        <div class="nav-item active" onclick="showPage('home-page')"><i class="fas fa-globe-americas"></i></div>
-        <div class="nav-item" onclick="showPage('feed-page')"><i class="fas fa-fire"></i></div>
-        <div class="nav-item" onclick="showPage('upload-page')"><i class="fas fa-plus-square"></i></div>
-        <div class="nav-item" onclick="showPage('chat-list-page')"><i class="fas fa-comments"></i></div>
+    <nav id="nav" class="hidden">
+        <div class="nav-item active" onclick="showPage('home-page')"><i class="fas fa-home"></i></div>
+        <div class="nav-item" onclick="showPage('feed-page')"><i class="fas fa-play"></i></div>
+        <div class="nav-item aura-nav" onclick="showPage('home-page')"><div class="aura-dot"></div></div>
+        <div class="nav-item" onclick="showPage('chat-list-page')"><i class="fas fa-comment"></i></div>
         <div class="nav-item" onclick="showPage('profile-page')"><i class="fas fa-user"></i></div>
     </nav>
 
-    <div id="comment-modal" class="modal">
-        <div class="modal-content glass-panel">
-            <button class="close-modal-btn" onclick="closeCommentModal()"><i class="fas fa-times"></i></button>
-            <h3>Yorumlar</h3>
-            <div id="comment-list" class="comment-scroll"></div>
-            <div class="comment-input-area">
-                <input type="text" id="new-comment-input" placeholder="Yorum yap...">
-                <button onclick="addComment()"><i class="fas fa-paper-plane"></i></button>
+    <div id="auth-page" class="page active">
+        <div class="auth-container">
+            <h1>Vibey</h1>
+            <div id="register-form">
+                <input type="text" id="name-input" placeholder="Adın ne?">
+                <button class="main-btn" onclick="handleAuth()">Vibe'a Katıl</button>
+            </div>
+            <div id="verify-form" class="hidden">
+                <input type="text" id="verify-code" placeholder="Gelen Kodu Yaz">
+                <button class="main-btn" onclick="handleVerify()">Doğrula</button>
             </div>
         </div>
     </div>
 
-    <div id="discover-modal" class="modal">
-        <div class="modal-content glass-panel">
-            <button class="close-modal-btn" onclick="closeDiscoverModal()"><i class="fas fa-times"></i></button>
-            <h3>Yeni Frekanslar</h3>
-            <div id="discover-list" class="discover-scroll"></div>
+    <div id="profile-page" class="page">
+        <div class="profile-header">
+            <img src="https://via.placeholder.com/150" id="my-profile-pic" class="profile-pic">
+            <h2 id="my-profile-name">Kullanıcı</h2>
+            <p id="my-relationship-status">Vibe Aranıyor</p>
+            <div class="stats">
+                <div class="stat"><b>0</b><br>Takip</div>
+                <div class="stat"><b id="follower-count">0</b><br>Takipçi</div>
+            </div>
+            <button class="f-btn" onclick="openEditProfileModal()">Profili Düzenle</button>
         </div>
     </div>
 
-    <div id="edit-profile-modal" class="modal">
-        <div class="modal-content glass-panel">
-            <h3>Profili Düzenle</h3>
-            <input type="text" id="modal-name-input" placeholder="Ad Soyad">
-            <select id="modal-relationship-status">
-                <option value="Bekar">Bekar</option>
-                <option value="İlişkisi var">İlişkisi var</option>
-                <option value="İlişkisi yok">İlişkisi yok</option>
-                <option value="Nişanlı">Nişanlı</option>
-                <option value="Evli">Evli</option>
-                <option value="Kafası Karışık">Kafası Karışık</option>
-                <option value="Vibe Arıyor">Vibe Arıyor</option>
-            </select>
-            <div class="modal-actions">
-                <button class="modal-btn" onclick="saveProfileChanges()">Kaydet</button>
-                <button class="modal-btn cancel-btn" onclick="closeEditProfileModal()">İptal</button>
-            </div>
-        </div>
+    <div id="feed-page" class="page">
+        <div id="video-container"></div>
     </div>
 
-    <div id="profile-preview-modal" class="modal">
-        <div class="modal-content glass-panel">
-            <button class="close-modal-btn" onclick="closeProfilePreviewModal()"><i class="fas fa-times"></i></button>
-            <div class="preview-profile-card">
-                <img id="preview-profile-pic" class="profile-pic-md" src="https://via.placeholder.com/150">
-                <h4 id="preview-profile-name">Kullanıcı Adı</h4>
-                <p id="preview-relationship-status" class="relationship-tag">Durum</p>
-                <div class="preview-vibe-info">
-                    <div class="orb-sm" id="preview-orb"></div>
-                    <span>Vibe: <b id="preview-vibe-text">Sakin</b></span>
-                </div>
-            </div>
-        </div>
+    <div id="chat-list-page" class="page">
+        <div id="chat-list-container"></div>
     </div>
 
     <script src="script.js"></script>
