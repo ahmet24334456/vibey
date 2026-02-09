@@ -131,4 +131,41 @@ function openDiscoverModal() { document.getElementById('discover-modal').classLi
 function renderDiscoverList() {
     const list = document.getElementById('discover-list');
     list.innerHTML = users.map(u => `<div class="chat-item" onclick="startNewChat(${u.id})"><b>${u.name}</b></div>`).join('');
+
 }
+// --- 7. EKSİK KALAN VE PROFİL FONKSİYONLARI ---
+function loadMyProfile() {
+    document.getElementById('my-profile-name').innerText = myProfile.name;
+    document.getElementById('my-relationship-status').innerText = myProfile.status;
+}
+
+function publishVideo() {
+    alert("Vibe Paylaşıldı!");
+    showPage('feed-page');
+}
+
+function previewMyProfilePic(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        document.getElementById('my-profile-pic').src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+function openEditProfileModal() { document.getElementById('edit-profile-modal').classList.add('active'); }
+function closeEditProfileModal() { document.getElementById('edit-profile-modal').classList.remove('active'); }
+
+function saveProfileChanges() {
+    myProfile.name = document.getElementById('modal-name-input').value || myProfile.name;
+    myProfile.status = document.getElementById('modal-relationship-status').value;
+    loadMyProfile();
+    closeEditProfileModal();
+}
+
+function openProfilePreviewModal() {
+    document.getElementById('profile-preview-modal').classList.add('active');
+    document.getElementById('preview-profile-name').innerText = myProfile.name;
+    document.getElementById('preview-relationship-status').innerText = myProfile.status;
+}
+
+function closeProfilePreviewModal() { document.getElementById('profile-preview-modal').classList.remove('active'); }
