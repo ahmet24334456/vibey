@@ -2,54 +2,88 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vibey | Frekansını Keşfet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibey | Sosyal Frekans</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <nav id="nav" class="hidden">
-        <div class="nav-item active" onclick="showPage('home-page')"><i class="fas fa-home"></i></div>
-        <div class="nav-item" onclick="showPage('feed-page')"><i class="fas fa-play"></i></div>
-        <div class="nav-item aura-nav" onclick="showPage('home-page')"><div class="aura-dot"></div></div>
-        <div class="nav-item" onclick="showPage('chat-list-page')"><i class="fas fa-comment"></i></div>
-        <div class="nav-item" onclick="showPage('profile-page')"><i class="fas fa-user"></i></div>
-    </nav>
 
-    <div id="auth-page" class="page active">
+    <section id="auth-page" class="page active">
         <div class="auth-container">
-            <h1>Vibey</h1>
+            <h1 class="logo-text">Vibey</h1>
             <div id="register-form">
-                <input type="text" id="name-input" placeholder="Adın ne?">
-                <button class="main-btn" onclick="handleAuth()">Vibe'a Katıl</button>
+                <input type="text" id="name-input" placeholder="Ad Soyad">
+                <input type="email" id="email-input" placeholder="Gmail Adresin">
+                <button onclick="handleAuth()">Kod Gönder</button>
             </div>
             <div id="verify-form" class="hidden">
-                <input type="text" id="verify-code" placeholder="Gelen Kodu Yaz">
-                <button class="main-btn" onclick="handleVerify()">Doğrula</button>
+                <p>Gmail kutunu kontrol et!</p>
+                <input type="text" id="verify-code" placeholder="0000">
+                <button onclick="handleVerify()">Giriş Yap</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div id="profile-page" class="page">
-        <div class="profile-header">
-            <img src="https://via.placeholder.com/150" id="my-profile-pic" class="profile-pic">
+    <section id="home-page" class="page">
+        <div class="aura-container">
+            <div id="main-orb" class="orb"></div>
+            <h2 id="aura-status">Analiz Ediliyor...</h2>
+        </div>
+    </section>
+
+    <section id="feed-page" class="page">
+        <div class="video-feed" id="video-container"></div>
+    </section>
+
+    <section id="chat-list-page" class="page">
+        <div class="page-header"><h3>Mesajlar</h3></div>
+        <div class="chat-list" id="chat-list-container"></div>
+    </section>
+
+    <section id="chat-box-page" class="page">
+        <div class="chat-header">
+            <button class="back-btn" onclick="showPage('chat-list-page')"><i class="fas fa-arrow-left"></i></button>
+            <h3 id="current-chat-name">İsim</h3>
+        </div>
+        <div class="messages-container" id="messages-container"></div>
+        <div class="message-input-area">
+            <input type="text" id="message-input" placeholder="Mesaj yaz...">
+            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </section>
+
+    <section id="profile-page" class="page">
+        <div class="profile-content">
+            <div class="profile-pic-wrapper">
+                <img id="my-profile-pic" src="https://via.placeholder.com/150">
+            </div>
             <h2 id="my-profile-name">Kullanıcı</h2>
-            <p id="my-relationship-status">Vibe Aranıyor</p>
-            <div class="stats">
-                <div class="stat"><b>0</b><br>Takip</div>
-                <div class="stat"><b id="follower-count">0</b><br>Takipçi</div>
-            </div>
-            <button class="f-btn" onclick="openEditProfileModal()">Profili Düzenle</button>
+            <p id="my-relationship-status" class="status-tag">Bekar</p>
+            <button onclick="openEditModal()">Profili Düzenle</button>
+        </div>
+    </section>
+
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <h3>Profili Düzenle</h3>
+            <input type="text" id="edit-name-input" placeholder="Yeni İsim">
+            <select id="edit-status-input">
+                <option value="Bekar">Bekar</option>
+                <option value="İlişkisi var">İlişkisi var</option>
+            </select>
+            <button onclick="saveProfile()">Kaydet</button>
+            <button class="btn-cancel" onclick="closeModals()">İptal</button>
         </div>
     </div>
 
-    <div id="feed-page" class="page">
-        <div id="video-container"></div>
-    </div>
-
-    <div id="chat-list-page" class="page">
-        <div id="chat-list-container"></div>
-    </div>
+    <nav id="nav" class="nav-bar hidden">
+        <div class="nav-item" onclick="showPage('home-page')"><i class="fas fa-compass"></i></div>
+        <div class="nav-item" onclick="showPage('feed-page')"><i class="fas fa-play-circle"></i></div>
+        <div class="nav-item" onclick="showPage('chat-list-page')"><i class="fas fa-comment-alt"></i></div>
+        <div class="nav-item" onclick="showPage('profile-page')"><i class="fas fa-user-circle"></i></div>
+    </nav>
 
     <script src="script.js"></script>
 </body>
