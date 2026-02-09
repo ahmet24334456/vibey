@@ -1,65 +1,48 @@
-let followerCount = 0;
-let myProfile = { name: "Kullanıcı", status: "Vibe Aranıyor" };
-
-function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
-    if(pageId === 'profile-page') updateProfileDisplay();
-}
-
-function handleAuth() {
-    const name = document.getElementById('name-input').value;
-    if(!name) return;
-    myProfile.name = name;
-    alert("Kodunuz: 1234");
-    document.getElementById('register-form').classList.add('hidden');
-    document.getElementById('verify-form').classList.remove('hidden');
-}
-
-function handleVerify() {
-    document.getElementById('nav').classList.remove('hidden');
-    showPage('feed-page');
-    renderVideos();
-}
-
-function renderVideos() {
-    const container = document.getElementById('video-container');
-    container.innerHTML = `
-        <div class="video-card">
-            <div class="v-sidebar">
-                <div class="v-action" onclick="toggleLike(this)"><i class="fas fa-heart"></i><br><span>0</span></div>
-                <button class="f-btn" onclick="toggleFollow(this)">Takip Et</button>
-            </div>
-        </div>`;
-}
+let followerCount = 0; // Gerçek sayaç
 
 function toggleLike(el) {
     const span = el.querySelector('span');
     let count = parseInt(span.innerText);
     el.classList.toggle('active');
-    if(el.classList.contains('active')) {
+    
+    if (el.classList.contains('active')) {
         span.innerText = count + 1;
-        el.style.color = '#ff3366';
     } else {
         span.innerText = count - 1;
-        el.style.color = '#fff';
     }
 }
 
 function toggleFollow(btn) {
-    if(btn.innerText === "Takip Et") {
+    // Takipçi sayısını gösteren elementi bul
+    const followerDisplay = document.getElementById('follower-count');
+
+    if (btn.innerText === "Takip Et") {
         btn.innerText = "Takiptesin";
-        btn.style.background = "rgba(255,255,255,0.2)";
+        btn.classList.add('following');
         followerCount++;
     } else {
         btn.innerText = "Takip Et";
-        btn.style.background = "transparent";
+        btn.classList.remove('following');
         followerCount--;
     }
-    updateProfileDisplay();
+
+    // Ekranda sayıyı güncelle
+    if(followerDisplay) followerDisplay.innerText = followerCount;
 }
 
-function updateProfileDisplay() {
-    document.getElementById('my-profile-name').innerText = myProfile.name;
-    document.getElementById('follower-count').innerText = followerCount;
+// Sayfa yüklendiğinde videoları hazırla
+window.onload = () => { renderVideos(); };
+
+function renderVideos() {
+    const container = document.getElementById('video-container');
+    if(!container) return;
+    container.innerHTML = `
+        <div class="video-card">
+            <div class="v-sidebar">
+                <div class="v-action" onclick="toggleLike(this)">
+                    <i class="fas fa-heart"></i><br><span>0</span>
+                </div>
+                <button class="f-btn" onclick="toggleFollow(this)">Takip Et</button>
+            </div>
+        </div>`;
 }
