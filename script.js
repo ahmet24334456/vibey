@@ -50,9 +50,36 @@ function renderVideos() {
         </div>`;
 }
 
+
 function toggleLike(el) {
+    const span = el.querySelector('span');
+    let currentLikes = parseFloat(span.innerText);
+
     el.classList.toggle('active');
-    el.style.color = el.classList.contains('active') ? '#ff3366' : '#fff';
+
+    if (el.classList.contains('active')) {
+        el.style.color = '#ff3366';
+        span.innerText = (currentLikes + 0.1).toFixed(1) + "k"; // Beğenince 0.1 artır
+    } else {
+        el.style.color = '#fff';
+        span.innerText = (currentLikes - 0.1).toFixed(1) + "k"; // Geri alınca azalt
+    }
+
+
+function toggleFollow(btn) {
+    // Profildeki takipçi sayısını temsil eden bir elementin olduğunu varsayalım
+    // Şimdilik sadece butonun durumunu ve metnini güncelliyoruz
+    if (btn.innerText === "Takip Et") {
+        btn.innerText = "Takiptesin";
+        btn.classList.add('following');
+        btn.style.background = "rgba(255, 255, 255, 0.2)";
+        console.log("Takipçi sayın arttı!"); // Arka planda log tutar
+    } else {
+        btn.innerText = "Takip Et";
+        btn.classList.remove('following');
+        btn.style.background = "transparent";
+    }
+}
 }
 
 function toggleFollow(btn) {
@@ -169,3 +196,4 @@ function openProfilePreviewModal() {
 }
 
 function closeProfilePreviewModal() { document.getElementById('profile-preview-modal').classList.remove('active'); }
+
