@@ -2,88 +2,135 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibey | Sosyal Frekans</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vibey | Your Aura, Your Social</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
     <section id="auth-page" class="page active">
-        <div class="auth-container">
-            <h1 class="logo-text">Vibey</h1>
-            <div id="register-form">
-                <input type="text" id="name-input" placeholder="Ad Soyad">
-                <input type="email" id="email-input" placeholder="Gmail Adresin">
-                <button onclick="handleAuth()">Kod Gönder</button>
+        <div class="auth-card">
+            <h1 class="brand-logo">Vibey</h1>
+            <p class="brand-subtitle">Frekansını dünyaya yansıt.</p>
+            <div id="auth-step-1">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="name-input" placeholder="Ad Soyad">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email-input" placeholder="Gmail Adresin">
+                </div>
+                <button class="main-btn" onclick="handleAuth()">Devam Et</button>
             </div>
-            <div id="verify-form" class="hidden">
-                <p>Gmail kutunu kontrol et!</p>
-                <input type="text" id="verify-code" placeholder="0000">
-                <button onclick="handleVerify()">Giriş Yap</button>
+            <div id="auth-step-2" class="hidden">
+                <p class="info-text">Gmail kutunu kontrol et, 4 haneli kodu gir.</p>
+                <div class="input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="text" id="verify-code" placeholder="0 0 0 0" maxlength="4">
+                </div>
+                <button class="main-btn" onclick="handleVerify()">Sisteme Gir</button>
             </div>
-        </div>
-    </section>
-
-    <section id="home-page" class="page">
-        <div class="aura-container">
-            <div id="main-orb" class="orb"></div>
-            <h2 id="aura-status">Analiz Ediliyor...</h2>
         </div>
     </section>
 
     <section id="feed-page" class="page">
-        <div class="video-feed" id="video-container"></div>
+        <header class="app-header">
+            <h2 class="header-logo">Vibey</h2>
+            <div class="header-icons">
+                <i class="far fa-heart"></i>
+                <i class="far fa-paper-plane" onclick="showPage('chat-list-page')"></i>
+            </div>
+        </header>
+        
+        <div class="stories-container" id="stories-wrapper">
+            </div>
+
+        <div class="feed-scroll" id="main-feed">
+            </div>
+    </section>
+
+    <section id="aura-page" class="page">
+        <div class="aura-center">
+            <div class="aura-glow"></div>
+            <div id="main-orb" class="main-orb"></div>
+            <div class="aura-info">
+                <h3 id="aura-status">Analiz Başlıyor...</h3>
+                <p id="aura-desc">Ruh halin taranıyor ve frekansın belirleniyor.</p>
+            </div>
+            <button class="re-scan-btn" onclick="startAuraAnalysis()">Tekrar Tara</button>
+        </div>
     </section>
 
     <section id="chat-list-page" class="page">
-        <div class="page-header"><h3>Mesajlar</h3></div>
+        <div class="sub-header">
+            <i class="fas fa-chevron-left" onclick="showPage('feed-page')"></i>
+            <h3>Mesajlar</h3>
+            <i class="fas fa-edit"></i>
+        </div>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Ara...">
+        </div>
         <div class="chat-list" id="chat-list-container"></div>
     </section>
 
-    <section id="chat-box-page" class="page">
-        <div class="chat-header">
-            <button class="back-btn" onclick="showPage('chat-list-page')"><i class="fas fa-arrow-left"></i></button>
-            <h3 id="current-chat-name">İsim</h3>
+    <section id="profile-page" class="page">
+        <div class="profile-header">
+            <h3 id="profile-username-top">kullanici</h3>
+            <i class="fas fa-bars"></i>
         </div>
-        <div class="messages-container" id="messages-container"></div>
-        <div class="message-input-area">
-            <input type="text" id="message-input" placeholder="Mesaj yaz...">
-            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        <div class="profile-info-grid">
+            <div class="profile-pic-container">
+                <img id="my-profile-pic" src="https://via.placeholder.com/150" alt="Profil">
+                <div class="vibe-ring"></div>
+            </div>
+            <div class="stats">
+                <div class="stat-item"><b>12</b><span>Vibe</span></div>
+                <div class="stat-item"><b>840</b><span>Takipçi</span></div>
+                <div class="stat-item"><b>320</b><span>Takip</span></div>
+            </div>
         </div>
+        <div class="profile-bio">
+            <b id="my-profile-name">İsim Soyisim</b>
+            <p id="my-bio">Vibey asistanı ile frekansımı yakaladım. 🌌</p>
+            <span id="my-relationship-status" class="rel-badge">Bekar</span>
+        </div>
+        <div class="profile-btns">
+            <button class="btn-gray" onclick="openEditModal()">Profili Düzenle</button>
+            <button class="btn-gray">Paylaş</button>
+        </div>
+        <div class="profile-tabs">
+            <i class="fas fa-th active"></i>
+            <i class="fas fa-play"></i>
+            <i class="fas fa-user-tag"></i>
+        </div>
+        <div class="profile-grid" id="profile-posts"></div>
     </section>
 
-    <section id="profile-page" class="page">
-        <div class="profile-content">
-            <div class="profile-pic-wrapper">
-                <img id="my-profile-pic" src="https://via.placeholder.com/150">
-            </div>
-            <h2 id="my-profile-name">Kullanıcı</h2>
-            <p id="my-relationship-status" class="status-tag">Bekar</p>
-            <button onclick="openEditModal()">Profili Düzenle</button>
-        </div>
-    </section>
+    <nav id="nav" class="bottom-nav hidden">
+        <div class="nav-icon" onclick="showPage('feed-page')"><i class="fas fa-home"></i></div>
+        <div class="nav-icon"><i class="fas fa-search"></i></div>
+        <div class="nav-icon add-btn"><i class="fas fa-plus-square"></i></div>
+        <div class="nav-icon" onclick="showPage('aura-page')"><i class="fas fa-bahai"></i></div>
+        <div class="nav-icon" onclick="showPage('profile-page')"><i class="fas fa-user"></i></div>
+    </nav>
 
     <div id="edit-modal" class="modal">
         <div class="modal-content">
-            <h3>Profili Düzenle</h3>
-            <input type="text" id="edit-name-input" placeholder="Yeni İsim">
+            <h3>Profili Güncelle</h3>
+            <input type="text" id="edit-name-input" placeholder="Yeni Ad Soyad">
             <select id="edit-status-input">
                 <option value="Bekar">Bekar</option>
                 <option value="İlişkisi var">İlişkisi var</option>
+                <option value="Karışık">Durum Karışık</option>
             </select>
-            <button onclick="saveProfile()">Kaydet</button>
-            <button class="btn-cancel" onclick="closeModals()">İptal</button>
+            <button class="main-btn" onclick="saveProfile()">Kaydet</button>
+            <button class="btn-link" onclick="closeModals()">Vazgeç</button>
         </div>
     </div>
-
-    <nav id="nav" class="nav-bar hidden">
-        <div class="nav-item" onclick="showPage('home-page')"><i class="fas fa-compass"></i></div>
-        <div class="nav-item" onclick="showPage('feed-page')"><i class="fas fa-play-circle"></i></div>
-        <div class="nav-item" onclick="showPage('chat-list-page')"><i class="fas fa-comment-alt"></i></div>
-        <div class="nav-item" onclick="showPage('profile-page')"><i class="fas fa-user-circle"></i></div>
-    </nav>
 
     <script src="script.js"></script>
 </body>
